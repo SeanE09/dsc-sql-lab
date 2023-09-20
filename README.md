@@ -71,6 +71,65 @@ FROM productlines
 pd.read_sql(q0, conn)
 ```
 
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>productLine</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Classic Cars</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Motorcycles</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Planes</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Ships</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Trains</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Trucks and Buses</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Vintage Cars</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
 From now on, you will replace `None` within these Python strings with the actual SQL query code.
 
 ## Part 1: Basic Queries
@@ -90,13 +149,129 @@ Write a query that gets the contact first name, contact last name, phone number,
 ```python
 # Replace None with appropriate SQL code
 q1 = """
-None
-;
+SELECT contactFirstName, contactLastName, phone, addressLine1, creditLimit
+FROM customers
+WHERE state = 'CA' AND creditLimit > 25000.00;
 """
 
 q1_result = pd.read_sql(q1, conn)
 q1_result
 ```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>contactFirstName</th>
+      <th>contactLastName</th>
+      <th>phone</th>
+      <th>addressLine1</th>
+      <th>creditLimit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Susan</td>
+      <td>Nelson</td>
+      <td>4155551450</td>
+      <td>5677 Strong St.</td>
+      <td>210500</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Julie</td>
+      <td>Murphy</td>
+      <td>6505555787</td>
+      <td>5557 North Pendale Street</td>
+      <td>64600</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Juri</td>
+      <td>Hashimoto</td>
+      <td>6505556809</td>
+      <td>9408 Furth Circle</td>
+      <td>84600</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Julie</td>
+      <td>Young</td>
+      <td>6265557265</td>
+      <td>78934 Hillside Dr.</td>
+      <td>90700</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Valarie</td>
+      <td>Thompson</td>
+      <td>7605558146</td>
+      <td>361 Furth Circle</td>
+      <td>105000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Julie</td>
+      <td>Brown</td>
+      <td>6505551386</td>
+      <td>7734 Strong St.</td>
+      <td>105000</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Brian</td>
+      <td>Chandler</td>
+      <td>2155554369</td>
+      <td>6047 Douglas Av.</td>
+      <td>57700</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Sue</td>
+      <td>Frick</td>
+      <td>4085553659</td>
+      <td>3086 Ingle Ln.</td>
+      <td>77600</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Steve</td>
+      <td>Thompson</td>
+      <td>3105553722</td>
+      <td>3675 Furth Circle</td>
+      <td>55400</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Sue</td>
+      <td>Taylor</td>
+      <td>4155554312</td>
+      <td>2793 Furth Circle</td>
+      <td>60300</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
 
 The following code checks that your result is correct:
 
@@ -128,13 +303,146 @@ We are looking for customers with names like `"Australian Collectors, Co."` or `
 ```python
 # Replace None with appropriate SQL code
 q2 = """
-None
-;
+SELECT 
+customerName,
+state,
+country
+
+FROM customers 
+WHERE Country != 'USA'
+AND CustomerName LIKE '%Collect%';
+
+
 """
+
+#  customer name, state, and country, for all customers outside of the USA with "Collect" as part of their customer name
 
 q2_result = pd.read_sql(q2, conn)
 q2_result
 ```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customerName</th>
+      <th>state</th>
+      <th>country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Australian Collectors, Co.</td>
+      <td>Victoria</td>
+      <td>Australia</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Clover Collections, Co.</td>
+      <td>None</td>
+      <td>Ireland</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>UK Collectables, Ltd.</td>
+      <td>None</td>
+      <td>UK</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>King Kong Collectables, Co.</td>
+      <td>None</td>
+      <td>Hong Kong</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Heintze Collectables</td>
+      <td>None</td>
+      <td>Denmark</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Royal Canadian Collectables, Ltd.</td>
+      <td>BC</td>
+      <td>Canada</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>BG&amp;E Collectables</td>
+      <td>None</td>
+      <td>Switzerland</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Reims Collectables</td>
+      <td>None</td>
+      <td>France</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Precious Collectables</td>
+      <td>None</td>
+      <td>Switzerland</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Salzburg Collectables</td>
+      <td>None</td>
+      <td>Austria</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Tokyo Collectables, Ltd</td>
+      <td>Tokyo</td>
+      <td>Japan</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Stuttgart Collectable Exchange</td>
+      <td>None</td>
+      <td>Germany</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Bavarian Collectables Imports, Co.</td>
+      <td>None</td>
+      <td>Germany</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Australian Collectables, Ltd</td>
+      <td>Victoria</td>
+      <td>Australia</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Kremlin Collectables, Co.</td>
+      <td>None</td>
+      <td>Russia</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
 
 The following code checks that your result is correct:
 
@@ -166,13 +474,151 @@ Here we'll only display the first 10 results.
 ```python
 # Replace None with appropriate SQL code
 q3 = """
-None
+SELECT 
+addressLine1,
+addressLine2,
+city,
+state,
+postalCode,
+country
+FROM Customers
+WHERE state is not NULL
 ;
 """
+
+
+# Write a query that gets the full address (line 1, line 2, city, state, postal code, country) 
+# for all customers where the state field is not null
 
 q3_result = pd.read_sql(q3, conn)
 q3_result.head(10)
 ```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>addressLine1</th>
+      <th>addressLine2</th>
+      <th>city</th>
+      <th>state</th>
+      <th>postalCode</th>
+      <th>country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>8489 Strong St.</td>
+      <td></td>
+      <td>Las Vegas</td>
+      <td>NV</td>
+      <td>83030</td>
+      <td>USA</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>636 St Kilda Road</td>
+      <td>Level 3</td>
+      <td>Melbourne</td>
+      <td>Victoria</td>
+      <td>3004</td>
+      <td>Australia</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>5677 Strong St.</td>
+      <td></td>
+      <td>San Rafael</td>
+      <td>CA</td>
+      <td>97562</td>
+      <td>USA</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5557 North Pendale Street</td>
+      <td></td>
+      <td>San Francisco</td>
+      <td>CA</td>
+      <td>94217</td>
+      <td>USA</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>897 Long Airport Avenue</td>
+      <td></td>
+      <td>NYC</td>
+      <td>NY</td>
+      <td>10022</td>
+      <td>USA</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>4092 Furth Circle</td>
+      <td>Suite 400</td>
+      <td>NYC</td>
+      <td>NY</td>
+      <td>10022</td>
+      <td>USA</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7586 Pompton St.</td>
+      <td></td>
+      <td>Allentown</td>
+      <td>PA</td>
+      <td>70267</td>
+      <td>USA</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>9408 Furth Circle</td>
+      <td></td>
+      <td>Burlingame</td>
+      <td>CA</td>
+      <td>94217</td>
+      <td>USA</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>149 Spinnaker Dr.</td>
+      <td>Suite 101</td>
+      <td>New Haven</td>
+      <td>CT</td>
+      <td>97823</td>
+      <td>USA</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>4658 Baden Av.</td>
+      <td></td>
+      <td>Cambridge</td>
+      <td>MA</td>
+      <td>51247</td>
+      <td>USA</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
 
 The following code checks that your result is correct:
 
@@ -208,13 +654,97 @@ The two fields selected should be `state` and `average_credit_limit`, which is t
 ```python
 # Replace None with appropriate SQL code
 q4 = """
-None
+SELECT
+state,
+AVG(creditLimit) as average_credit_limit
+FROM
+Customers
+WHERE country ='USA'
+GROUP BY state
+--ORDER BY average_credit_limit desc
 ;
 """
+
+
+# Write a query that gets the average credit limit per state in the USA.
+
+# The two fields selected should be state and average_credit_limit, which is the average of the creditLimit field for that state.
 
 q4_result = pd.read_sql(q4, conn)
 q4_result
 ```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>state</th>
+      <th>average_credit_limit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>CA</td>
+      <td>83854.545455</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>CT</td>
+      <td>57350.000000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>MA</td>
+      <td>70755.555556</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NH</td>
+      <td>114200.000000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NJ</td>
+      <td>43000.000000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>NV</td>
+      <td>71800.000000</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>NY</td>
+      <td>89966.666667</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>PA</td>
+      <td>84766.666667</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
 
 The following code checks that your result is correct:
 
@@ -250,12 +780,154 @@ Write a query that uses `JOIN` statements to get the customer name, order number
 ```python
 # Replace None with appropriate SQL code
 q5 = """
-None
+SELECT
+C1.customerName,
+O1.orderNumber,
+O1.status
+FROM customers C1
+JOIN orders O1
+ON C1.customerNumber = O1.customerNumber
+
 ;
 """
+
+
+
+# Write a query that uses JOIN statements to get the customer name, order number, and status for all orders. 
+# For this example, stick to a simple join and avoid using sub-queries.
+
+# To ensure that your results will pass, make sure your output resembles the image below, 
+# including the order of the column names.
+
+# Refer to the ERD above to understand which tables contain these pieces of information, 
+# and the relationship between these tables.
+
 q5_result = pd.read_sql(q5, conn)
 q5_result.head(15)
 ```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customerName</th>
+      <th>orderNumber</th>
+      <th>status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Atelier graphique</td>
+      <td>10123</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Atelier graphique</td>
+      <td>10298</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Atelier graphique</td>
+      <td>10345</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Signal Gift Stores</td>
+      <td>10124</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Signal Gift Stores</td>
+      <td>10278</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Signal Gift Stores</td>
+      <td>10346</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Australian Collectors, Co.</td>
+      <td>10120</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Australian Collectors, Co.</td>
+      <td>10125</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Australian Collectors, Co.</td>
+      <td>10223</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Australian Collectors, Co.</td>
+      <td>10342</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Australian Collectors, Co.</td>
+      <td>10347</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>La Rochelle Gifts</td>
+      <td>10275</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>La Rochelle Gifts</td>
+      <td>10315</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>La Rochelle Gifts</td>
+      <td>10375</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>La Rochelle Gifts</td>
+      <td>10425</td>
+      <td>In Process</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
 
 The following code checks that your result is correct:
 
@@ -287,12 +959,125 @@ The three columns selected should be `customerName`, `customerNumber` and `total
 ```python
 # Replace None with appropriate SQL code
 q6 = """
-None
+SELECT
+C1.customerName,
+C1.customerNumber,
+sum(P1.amount) as total_payment_amount
+FROM customers C1
+JOIN payments P1 
+ON P1.customerNumber = C1.customerNumber 
+GROUP BY P1.customerNumber
+ORDER BY total_payment_amount desc
+LIMIT 10
 ;
 """
+
+
+
+
+# Write a query that uses JOIN statements to get top 10 customers in terms of total payment amount. 
+# Find the customer name, customer number, and sum of all payments made. The results should be ordered by the sum of payments made, starting from the highest value.
+
+# The three columns selected should be customerName, customerNumber and total_payment_amount
+
+
+
 q6_result = pd.read_sql(q6, conn)
 q6_result
 ```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customerName</th>
+      <th>customerNumber</th>
+      <th>total_payment_amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Euro+ Shopping Channel</td>
+      <td>141</td>
+      <td>715738.98</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Mini Gifts Distributors Ltd.</td>
+      <td>124</td>
+      <td>584188.24</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Australian Collectors, Co.</td>
+      <td>114</td>
+      <td>180585.07</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Muscle Machine Inc</td>
+      <td>151</td>
+      <td>177913.95</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Dragon Souveniers, Ltd.</td>
+      <td>148</td>
+      <td>156251.03</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Down Under Souveniers, Inc</td>
+      <td>323</td>
+      <td>154622.08</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>AV Stores, Co.</td>
+      <td>187</td>
+      <td>148410.09</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Anna's Decorations, Ltd</td>
+      <td>276</td>
+      <td>137034.22</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Corporate Gift Ideas Co.</td>
+      <td>321</td>
+      <td>132340.78</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Saveley &amp; Henriot, Co.</td>
+      <td>146</td>
+      <td>130305.35</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
 
 The following code checks that your result is correct:
 
@@ -326,12 +1111,162 @@ The five columns selected should be `customerName`, `customerNumber`, `productNa
 ```python
 # Replace None with approprite SQL code
 q7 = """
-None
+SELECT
+C1.customerName,
+C1.customerNumber,
+P1.productName,
+P1.productCode,
+SUM(OD1.quantityOrdered) AS total_ordered
+FROM customers C1
+JOIN orders O1
+ON C1.customerNumber = O1.customerNumber
+JOIN orderdetails OD1
+ON OD1.orderNumber = O1.orderNumber
+JOIN products P1
+ON P1.productCode = OD1.productCode
+GROUP BY C1.customerNumber, OD1.productCode
+HAVING SUM(OD1.quantityOrdered) >= 10
+ORDER BY total_ordered
 ;
 """
+
+
+# Write a query that, for each customer, finds all of the products that they have purchased 10 or more times cumulatively. 
+# For each record, return the customer name, customer number, product name, product code, and total number ordered. 
+# Sort the rows in ascending order by the quantity ordered.
+
+# The five columns selected should be customerName, customerNumber, productName, productCode, and total_ordered, 
+# where total_ordered is the sum of all quantities of that product ordered by that customer.
+
+# Hint: For this one, you'll need to make use of HAVING, GROUP BY, and ORDER BY — make sure you get the order of them correct!
+
 q7_result = pd.read_sql(q7, conn)
 q7_result
 ```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customerName</th>
+      <th>customerNumber</th>
+      <th>productName</th>
+      <th>productCode</th>
+      <th>total_ordered</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Petit Auto</td>
+      <td>314</td>
+      <td>1913 Ford Model T Speedster</td>
+      <td>S18_2949</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Extreme Desk Decorations, Ltd</td>
+      <td>412</td>
+      <td>1961 Chevrolet Impala</td>
+      <td>S24_4620</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>La Rochelle Gifts</td>
+      <td>119</td>
+      <td>1954 Greyhound Scenicruiser</td>
+      <td>S32_2509</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Tekni Collectables Inc.</td>
+      <td>328</td>
+      <td>American Airlines: B767-300</td>
+      <td>S700_1691</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>The Sharp Gifts Warehouse</td>
+      <td>450</td>
+      <td>1969 Chevrolet Camaro Z28</td>
+      <td>S24_3191</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2526</th>
+      <td>Euro+ Shopping Channel</td>
+      <td>141</td>
+      <td>2002 Chevy Corvette</td>
+      <td>S24_3432</td>
+      <td>174</td>
+    </tr>
+    <tr>
+      <th>2527</th>
+      <td>Euro+ Shopping Channel</td>
+      <td>141</td>
+      <td>1957 Chevy Pickup</td>
+      <td>S12_4473</td>
+      <td>183</td>
+    </tr>
+    <tr>
+      <th>2528</th>
+      <td>Euro+ Shopping Channel</td>
+      <td>141</td>
+      <td>1970 Dodge Coronet</td>
+      <td>S24_1444</td>
+      <td>197</td>
+    </tr>
+    <tr>
+      <th>2529</th>
+      <td>Euro+ Shopping Channel</td>
+      <td>141</td>
+      <td>1958 Chevy Corvette Limited Edition</td>
+      <td>S24_2840</td>
+      <td>245</td>
+    </tr>
+    <tr>
+      <th>2530</th>
+      <td>Euro+ Shopping Channel</td>
+      <td>141</td>
+      <td>1992 Ferrari 360 Spider red</td>
+      <td>S18_3232</td>
+      <td>308</td>
+    </tr>
+  </tbody>
+</table>
+<p>2531 rows × 5 columns</p>
+</div>
+
+
 
 The following code checks that your result is correct:
 
