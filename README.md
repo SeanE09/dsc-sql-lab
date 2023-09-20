@@ -161,7 +161,19 @@ q1_result
 
 
 
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -1286,12 +1298,150 @@ Finally, get the last name, first name, employee number, and office code for emp
 ```python
 # Replace None with approprite SQL code
 q8 = """
-None
+SELECT
+E1.lastName, 
+E1.firstName,
+E1.employeeNumber,
+E1.officeCode
+FROM 
+employees E1
+
+WHERE E1.officeCode IN 
+(
+SELECT officeCode
+FROM employees
+GROUP BY officeCode
+HAVING COUNT(*) < 5
+)
+
 ;
 """
+
+
+# Finally, get the last name, first name, employee number, and office code for employees from offices 
+# with fewer than 5 employees.
+
 q8_result = pd.read_sql(q8, conn)
 q8_result
 ```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>lastName</th>
+      <th>firstName</th>
+      <th>employeeNumber</th>
+      <th>officeCode</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Patterson</td>
+      <td>William</td>
+      <td>1088</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Firrelli</td>
+      <td>Julie</td>
+      <td>1188</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Patterson</td>
+      <td>Steve</td>
+      <td>1216</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Tseng</td>
+      <td>Foon Yue</td>
+      <td>1286</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Vanauf</td>
+      <td>George</td>
+      <td>1323</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Bott</td>
+      <td>Larry</td>
+      <td>1501</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Jones</td>
+      <td>Barry</td>
+      <td>1504</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Fixter</td>
+      <td>Andy</td>
+      <td>1611</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Marsh</td>
+      <td>Peter</td>
+      <td>1612</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>King</td>
+      <td>Tom</td>
+      <td>1619</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Nishi</td>
+      <td>Mami</td>
+      <td>1621</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Kato</td>
+      <td>Yoshimi</td>
+      <td>1625</td>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
 
 The following code checks that your result is correct:
 
